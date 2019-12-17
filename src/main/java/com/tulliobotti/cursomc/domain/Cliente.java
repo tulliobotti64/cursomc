@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tulliobotti.cursomc.domain.enums.TipoCliente;
 
 //implementar o mapeamento objeto relacional
@@ -29,6 +30,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private Integer tipo; //macete: campo trocado de TipoCliente para Integer ???
 	
+	@JsonManagedReference //liberar a serializacao para os enderecos 
 	// associacoes: um cliente pode ter varios enderecos
 	@OneToMany(mappedBy="cliente")
 	private List<Endereco> enderecos = new ArrayList<>();

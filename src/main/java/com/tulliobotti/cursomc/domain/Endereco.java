@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 //implementar o mapeamento objeto relacional
 @Entity
 public class Endereco implements Serializable{
@@ -22,6 +24,7 @@ public class Endereco implements Serializable{
 	private String bairro;
 	private String cep;
 	
+	@JsonBackReference // para nao serializar o cliente
 	// fazer associacoes: O cliente pode ter varios enderecos
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
