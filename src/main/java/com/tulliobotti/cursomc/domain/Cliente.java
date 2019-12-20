@@ -5,18 +5,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tulliobotti.cursomc.domain.enums.TipoCliente;
 
 //implementar o mapeamento objeto relacional
@@ -33,7 +31,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private Integer tipo; //macete: campo trocado de TipoCliente para Integer ???
 	
-	@JsonManagedReference //liberar a serializacao para os enderecos 
+	//@JsonManagedReference //liberar a serializacao para os enderecos 
 	// associacoes: um cliente pode ter varios enderecos
 	@OneToMany(mappedBy="cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -44,7 +42,7 @@ public class Cliente implements Serializable {
 	private Set<String> telefone = new HashSet<>();
 	
 	//relacionamento 
-	@JsonBackReference // (Endpoint Pedido) cliente nao pode ser serializado (loop) 
+	@JsonIgnore // (Endpoint Pedido) cliente nao pode ser serializado (loop) 
 	@OneToMany(mappedBy="cliente")
 	//associacao da tabela Pedidos
 	private List<Pedido> pedidos = new ArrayList<>();
