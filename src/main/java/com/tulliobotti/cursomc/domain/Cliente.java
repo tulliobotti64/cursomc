@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tulliobotti.cursomc.domain.enums.TipoCliente;
 
@@ -41,7 +42,9 @@ public class Cliente implements Serializable {
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefone = new HashSet<>();
+	
 	//relacionamento 
+	@JsonBackReference // (Endpoint Pedido) cliente nao pode ser serializado (loop) 
 	@OneToMany(mappedBy="cliente")
 	//associacao da tabela Pedidos
 	private List<Pedido> pedidos = new ArrayList<>();

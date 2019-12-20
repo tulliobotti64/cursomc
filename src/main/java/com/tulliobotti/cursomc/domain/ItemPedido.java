@@ -5,11 +5,14 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	// este conceito que é uma associacao entre 2 tabelas (linha pontilhada) precisa de uma chave composta
 	
+	@JsonIgnore // nao serializar nem pedido e nem produto
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -34,14 +37,15 @@ public class ItemPedido implements Serializable{
 		this.preco = preco;
 	}
 
-	// getters da chave 
+	// getters da chave incluidos manualmente
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
 	public Produto getProduto() {
 		return id.getProduto();
 	}
-	
+	// getters da chave 
 	public ItemPedidoPK getId() {
 		return id;
 	}
