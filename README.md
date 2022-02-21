@@ -13,3 +13,4 @@ sudo install cursomc
 ## Version
 
 With this version it is possible to update from command line
+(master repo)
